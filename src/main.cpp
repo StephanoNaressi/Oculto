@@ -1,3 +1,4 @@
+#include <iostream>
 #include <optional>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -16,6 +17,12 @@ int main()
             // Close window: exit
             if (event->is<sf::Event::Closed>())
                 window.close();
+            //MousePressed testing
+            if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+                if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
+                    std::cout << "PRESSED LEFT" << std::endl;
+                }
+            }
         }
 
         // Clear screen
@@ -29,6 +36,7 @@ int main()
         sf::Sprite bufferSprite(texture);
         //Draw your buffer
         window.draw(bufferSprite);
+
 
         // Update the window
         window.display();
