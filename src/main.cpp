@@ -1,12 +1,12 @@
 #include <iostream>
-#include <optional>
-#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include "DrawingEngine.hpp"
 
 int main()
 {
     // Create the main window
     sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "SFML window");
+    Oculto::DrawingEngine drawingEngine;
 
     // Start the game loop
     while (window.isOpen())
@@ -21,6 +21,7 @@ int main()
             if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
                     std::cout << "PRESSED LEFT" << std::endl;
+                    drawingEngine.Draw(mouseButtonPressed->position);
                 }
             }
         }
@@ -28,15 +29,9 @@ int main()
         // Clear screen
         window.clear();
         // Draw here
-        // Creates a Pixel Image Buffer
-        sf::Image buffer(sf::Vector2u(800, 600), sf::Color(255, 255, 255));
-        //Set SRGB conversion to false? Maybe check
-        sf::Texture texture(buffer, false);
-        // Create a sprite from the texture
-        sf::Sprite bufferSprite(texture);
-        //Draw your buffer
-        window.draw(bufferSprite);
 
+        //Draw your buffer
+        window.draw(*(drawingEngine.GetMainSprite().get()));
 
         // Update the window
         window.display();
