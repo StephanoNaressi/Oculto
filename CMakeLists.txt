@@ -8,9 +8,10 @@ set(CMAKE_CXX_FLAGS "/W4 /EHsc")
 include_directories(./Headers/Engines)
 
 find_package(SFML COMPONENTS Graphics Window System CONFIG REQUIRED)
+find_package(TGUI CONFIG RELEASE)
 
 add_executable(Oculto
 "src/main.cpp"
  "src/Engines/DrawingEngine.cpp")
 
-target_link_libraries(Oculto PRIVATE SFML::Graphics SFML::Window SFML::System)
+target_link_libraries(Oculto PRIVATE SFML::Graphics SFML::Window SFML::System TGUI::TGUI)
