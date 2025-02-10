@@ -20,6 +20,15 @@ int main()
 
         // Clear screen
         window.clear();
+        // Draw here
+        // Creates a Pixel Image Buffer
+        sf::Image buffer(sf::Vector2u(800, 600), sf::Color(255, 255, 255));
+        //Set SRGB conversion to false? Maybe check
+        sf::Texture texture(buffer, false);
+        // Create a sprite from the texture
+        sf::Sprite bufferSprite(texture);
+        //Draw your buffer
+        window.draw(bufferSprite);
 
         // Update the window
         window.display();
