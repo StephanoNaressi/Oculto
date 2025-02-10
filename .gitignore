@@ -1,5 +1,7 @@
+build
 .vs
 out/
+CMakePresets.json
 # Prerequisites
 *.d
 
