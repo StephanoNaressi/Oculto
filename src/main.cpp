@@ -1,11 +1,14 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
+#include <TGUI/Backend/SFML-Graphics.hpp>
 #include "DrawingEngine.hpp"
 
 int main()
 {
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "SFML window");
+    sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "Oculto");
+    tgui::Gui gui{ window };
     Oculto::DrawingEngine drawingEngine;
     sf::Event event;
     sf::View view = window.getDefaultView();
@@ -64,7 +67,7 @@ int main()
 
         //Draw your buffer
         window.draw(drawingEngine.GetMainSprite());
-
+        gui.draw();
         // Update the window
         window.display();
 

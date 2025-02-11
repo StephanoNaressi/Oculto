@@ -9,7 +9,6 @@ namespace Oculto {
 			DrawingEngine() noexcept;
 			sf::Sprite& GetMainSprite() noexcept;
 			void Draw(sf::Vector2f mouseCoords) noexcept;
-			void ResizeBuffer(sf::Vector2u windowSize) noexcept;
 		private:
 			sf::Image _mainBuffer;
 			sf::Texture _mainTexture;
