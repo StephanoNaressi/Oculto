@@ -2,27 +2,24 @@
 
 namespace Oculto {
 	DrawingEngine::DrawingEngine() noexcept
-		: _mainBuffer(std::make_shared<sf::Image>(sf::Vector2u(800, 600), sf::Color(255, 255, 255))),
-		_mainTexture(std::make_shared<sf::Texture>(*(_mainBuffer.get()))),
-		_mainSprite(std::make_shared<sf::Sprite>(*(_mainTexture.get())))
+		: _mainBuffer(),
+		_mainTexture(),
+		_mainSprite()
 	{
-
+		_mainBuffer.create(800,600,sf::Color(255,255,255));
+		_mainTexture.loadFromImage(_mainBuffer);
+		_mainSprite.setTexture(_mainTexture);
 	}
 
-	std::shared_ptr <sf::Sprite> DrawingEngine::GetMainSprite() noexcept {
+	sf::Sprite& DrawingEngine::GetMainSprite() noexcept {
 		return _mainSprite;
 	}
 
 	void DrawingEngine::Draw(sf::Vector2f mouseCoords) noexcept{
 		sf::Vector2u mouseVector(mouseCoords.x, mouseCoords.y);
-		_mainBuffer->setPixel(mouseVector, sf::Color(0,0,0));
-		_mainTexture = std::make_shared<sf::Texture>(*(_mainBuffer.get()));
-		_mainSprite = std::make_shared<sf::Sprite>(*(_mainTexture.get()));
+		_mainBuffer.setPixel(mouseVector.x,mouseVector.y, sf::Color(0,0,0));
+		_mainTexture.loadFromImage(_mainBuffer);
+		_mainSprite.setTexture(_mainTexture);
 	}
 
-	void DrawingEngine::ResizeBuffer(sf::Vector2u windowSize) noexcept{
-		_mainBuffer->resize(windowSize);
-		_mainTexture = std::make_shared<sf::Texture>(*(_mainBuffer.get()));
-		_mainSprite = std::make_shared<sf::Sprite>(*(_mainTexture.get()));
-	}
 }
