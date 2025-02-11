@@ -8,7 +8,7 @@ namespace Oculto {
 	{
 		_mainBuffer.create(800,600,sf::Color(255,255,255));
 		_mainTexture.loadFromImage(_mainBuffer);
-		_mainSprite.setTexture(_mainTexture);
+		_mainSprite.setTexture(_mainTexture, true);
 	}
 
 	sf::Sprite& DrawingEngine::GetMainSprite() noexcept {
@@ -16,10 +16,15 @@ namespace Oculto {
 	}
 
 	void DrawingEngine::Draw(sf::Vector2f mouseCoords) noexcept{
-		sf::Vector2u mouseVector(mouseCoords.x, mouseCoords.y);
-		_mainBuffer.setPixel(mouseVector.x,mouseVector.y, sf::Color(0,0,0));
-		_mainTexture.loadFromImage(_mainBuffer);
-		_mainSprite.setTexture(_mainTexture);
+
+		// Clamp coordinates to buffer dimensions
+		const unsigned int x = static_cast<unsigned int>(std::round(mouseCoords.x));
+		const unsigned int y = static_cast<unsigned int>(std::round(mouseCoords.y));
+		// Clamp to buffer dimensions
+		if (x < 800 && y < 600) {
+			_mainBuffer.setPixel(x, y, sf::Color::Black);
+			_mainTexture.update(_mainBuffer);
+		}
 	}
 
 }
